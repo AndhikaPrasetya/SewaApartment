@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huniku Admin — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#0F766E', dark: '#134E4A' },
+        mint: '#E6F4F1',
+        page: '#F7FAF9',
+        ink: { DEFAULT: '#172B2A', muted: '#60716F' },
+        line: '#D9E4E1',
+        gold: '#C59A55',
+        success: '#15803D', warning: '#B45309', danger: '#B91C1C'
+      },
+      fontFamily: { heading: ['Manrope', 'sans-serif'], sans: ['Inter', 'sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+  :focus-visible { outline: 2px solid #0F766E; outline-offset: 2px; }
+</style>
+</head>
+<body class="bg-page text-ink font-sans antialiased">
+<div class="flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="hidden lg:flex w-64 shrink-0 flex-col bg-white border-r border-line sticky top-0 h-screen">
+    <div class="h-16 px-5 flex items-center gap-2 border-b border-line">
+      <span class="grid place-items-center w-8 h-8 rounded-lg bg-primary text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      </span>
+      <span class="font-heading font-extrabold text-lg text-primary-dark">Huniku <span class="text-ink-muted font-semibold text-sm">Admin</span></span>
+    </div>
+    <nav class="flex-1 overflow-y-auto p-3 text-sm" aria-label="Menu admin">
+      <p class="px-3 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-wider text-ink-muted">Operasional</p>
+      <a href="#" aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-mint text-primary-dark font-semibold">▦ Dashboard</a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-muted hover:bg-page">▤ Bookings <span class="ml-auto rounded-full bg-warning/10 text-warning text-xs font-semibold px-2">12</span></a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-muted hover:bg-page">⌂ Units / Listings</a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-muted hover:bg-page">% DP Rules</a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-muted hover:bg-page">₿ Payments &amp; Refunds</a>
+      <p class="px-3 pt-5 pb-1 text-[11px] font-semibold uppercase tracking-wider text-ink-muted">Manajemen</p>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-muted hover:bg-page">☺ Agents &amp; Users</a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-muted hover:bg-page">◔ Reports</a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-muted hover:bg-page">⚙ Settings &amp; Audit</a>
+    </nav>
+    <div class="p-3 border-t border-line">
+      <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-page">
+        <span class="w-9 h-9 rounded-full bg-primary text-white grid place-items-center font-semibold text-sm">AD</span>
+        <div class="text-sm leading-tight"><p class="font-semibold">Admin Utama</p><p class="text-xs text-ink-muted">Super Admin</p></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="flex-1 min-w-0">
+    <header class="h-16 bg-white border-b border-line px-4 md:px-8 flex items-center gap-4 sticky top-0 z-30">
+      <div class="text-sm">
+        <nav aria-label="Breadcrumb" class="text-ink-muted">Admin <span class="mx-1">/</span> <span class="text-ink font-semibold">Dashboard</span></nav>
+      </div>
+      <div class="ml-auto flex items-center gap-3">
+        <label class="sr-only" for="cari">Cari</label>
+        <input id="cari" type="search" placeholder="Cari kode booking, customer, unit…" class="hidden md:block w-72 h-10 rounded-lg border border-line bg-page px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+        <button class="w-10 h-10 rounded-lg border border-line grid place-items-center hover:bg-page" aria-label="Notifikasi">🔔</button>
+      </div>
+    </header>
+
+    <main class="p-4 md:p-8 max-w-[1400px]">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-primary-dark">Selamat datang kembali</h1>
+          <p class="text-sm text-ink-muted mt-1">Ringkasan operasional · Rabu, 14 Oktober 2026</p>
+        </div>
+        <div class="flex gap-2">
+          <select aria-label="Periode" class="h-10 rounded-lg border border-line bg-white px-3 text-sm"><option>7 hari terakhir</option><option>30 hari terakhir</option><option>Bulan ini</option></select>
+          <button class="h-10 px-4 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary-dark">Ekspor CSV</button>
+        </div>
+      </div>
+
+      <!-- KPI -->
+      <section class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Ringkasan">
+        <div class="bg-white border border-line rounded-xl p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Booking hari ini</p>
+          <p class="mt-2 font-heading font-extrabold text-3xl">18</p>
+          <p class="mt-2 text-xs text-success font-semibold">▲ 12% vs kemarin</p>
+        </div>
+        <div class="bg-white border border-line rounded-xl p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Menunggu konfirmasi agen</p>
+          <p class="mt-2 font-heading font-extrabold text-3xl text-warning">7</p>
+          <p class="mt-2 text-xs text-ink-muted">2 akan lewat dalam &lt; 3 jam</p>
+        </div>
+        <div class="bg-white border border-line rounded-xl p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Menunggu pelunasan</p>
+          <p class="mt-2 font-heading font-extrabold text-3xl">5</p>
+          <p class="mt-2 text-xs text-ink-muted">Total sisa Rp 41,2 jt</p>
+        </div>
+        <div class="bg-white border border-line rounded-xl p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Expired (7 hari)</p>
+          <p class="mt-2 font-heading font-extrabold text-3xl text-danger">4</p>
+          <p class="mt-2 text-xs text-ink-muted">3 refund pending</p>
+        </div>
+      </section>
+
+      <div class="mt-6 grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+        <!-- Trend -->
+        <section class="bg-white border border-line rounded-xl p-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-heading font-bold text-lg">Pendapatan terverifikasi</h2>
+              <p class="text-sm text-ink-muted">DP + pelunasan, 14 hari terakhir</p>
+            </div>
+            <p class="font-heading font-extrabold text-2xl text-primary-dark">Rp 186,4 jt</p>
+          </div>
+          <div class="mt-6 flex items-end gap-2 h-44" role="img" aria-label="Grafik batang pendapatan harian">
+            <div class="flex-1 bg-mint rounded-t h-[35%]"></div><div class="flex-1 bg-mint rounded-t h-[50%]"></div><div class="flex-1 bg-mint rounded-t h-[42%]"></div>
+            <div class="flex-1 bg-mint rounded-t h-[65%]"></div><div class="flex-1 bg-mint rounded-t h-[55%]"></div><div class="flex-1 bg-mint rounded-t h-[48%]"></div>
+            <div class="flex-1 bg-primary/60 rounded-t h-[72%]"></div><div class="flex-1 bg-primary/60 rounded-t h-[60%]"></div><div class="flex-1 bg-primary/60 rounded-t h-[80%]"></div>
+            <div class="flex-1 bg-primary/80 rounded-t h-[68%]"></div><div class="flex-1 bg-primary/80 rounded-t h-[88%]"></div><div class="flex-1 bg-primary/80 rounded-t h-[76%]"></div>
+            <div class="flex-1 bg-primary rounded-t h-[95%]"></div><div class="flex-1 bg-primary-dark rounded-t h-[84%]"></div>
+          </div>
+          <div class="mt-2 flex justify-between text-xs text-ink-muted"><span>1 Okt</span><span>14 Okt</span></div>
+        </section>
+
+        <!-- Perlu tindakan -->
+        <section class="bg-white border border-line rounded-xl p-5">
+          <h2 class="font-heading font-bold text-lg">Perlu tindakan</h2>
+          <ul class="mt-4 divide-y divide-line text-sm">
+            <li class="py-3 flex gap-3"><span class="mt-1 w-2 h-2 rounded-full bg-danger shrink-0"></span><div><p class="font-semibold">BK-0042 — deadline agen 2 jam lagi</p><p class="text-ink-muted text-xs">Skyline Residences · Agen: Rina</p></div></li>
+            <li class="py-3 flex gap-3"><span class="mt-1 w-2 h-2 rounded-full bg-warning shrink-0"></span><div><p class="font-semibold">Webhook pembayaran setelah expiry</p><p class="text-ink-muted text-xs">BK-0031 · perlu rekonsiliasi</p></div></li>
+            <li class="py-3 flex gap-3"><span class="mt-1 w-2 h-2 rounded-full bg-warning shrink-0"></span><div><p class="font-semibold">3 refund menunggu diproses</p><p class="text-ink-muted text-xs">Total Rp 7,8 jt</p></div></li>
+            <li class="py-3 flex gap-3"><span class="mt-1 w-2 h-2 rounded-full bg-primary shrink-0"></span><div><p class="font-semibold">Konflik aturan DP terdeteksi</p><p class="text-ink-muted text-xs">Unit Maple Grove · prioritas sama</p></div></li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Table -->
+      <section class="mt-6 bg-white border border-line rounded-xl">
+        <div class="p-5 flex flex-wrap items-center gap-3 justify-between border-b border-line">
+          <h2 class="font-heading font-bold text-lg">Booking terbaru</h2>
+          <div class="flex flex-wrap gap-2">
+            <label class="sr-only" for="fstatus">Status</label>
+            <select id="fstatus" class="h-9 rounded-lg border border-line bg-white px-3 text-sm"><option>Semua status</option><option>Pending DP</option><option>Menunggu Konfirmasi</option><option>Menunggu Pelunasan</option><option>Confirmed/Paid</option><option>Expired</option></select>
+            <label class="sr-only" for="fagen">Agen</label>
+            <select id="fagen" class="h-9 rounded-lg border border-line bg-white px-3 text-sm"><option>Semua agen</option><option>Rina</option><option>Dedi</option></select>
+            <button class="h-9 px-3 rounded-lg border border-line text-sm hover:bg-page">Filter lanjutan</button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm min-w-[900px]">
+            <thead class="text-left text-xs uppercase tracking-wider text-ink-muted bg-page">
+              <tr>
+                <th class="px-5 py-3 font-semibold">Kode</th><th class="px-3 py-3 font-semibold">Customer</th><th class="px-3 py-3 font-semibold">Unit</th>
+                <th class="px-3 py-3 font-semibold">Periode</th><th class="px-3 py-3 font-semibold">Status</th><th class="px-3 py-3 font-semibold">DP / Sisa</th>
+                <th class="px-3 py-3 font-semibold">Deadline</th><th class="px-5 py-3 font-semibold text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line">
+              <tr class="hover:bg-page/70">
+                <td class="px-5 py-3 font-semibold">BK-0042</td><td class="px-3">Ryan Korsgaard</td><td class="px-3">Skyline Residences</td><td class="px-3">1 Nov – 30 Nov</td>
+                <td class="px-3"><span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-warning border border-warning/20 text-xs font-semibold px-2.5 py-1"><span class="w-1.5 h-1.5 rounded-full bg-warning"></span>Menunggu Konfirmasi</span></td>
+                <td class="px-3">Rp 2,55 jt / Rp 5,95 jt</td><td class="px-3">14 Okt, 16:40</td>
+                <td class="px-5 text-right"><button class="h-8 px-3 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary-dark">Approve</button> <button class="h-8 px-3 rounded-lg border border-danger/30 text-danger text-xs font-semibold hover:bg-red-50">Reject</button></td>
+              </tr>
+              <tr class="hover:bg-page/70">
+                <td class="px-5 py-3 font-semibold">BK-0041</td><td class="px-3">Madelyn Lubin</td><td class="px-3">The Linden Studio</td><td class="px-3">5 Nov – 5 Des</td>
+                <td class="px-3"><span class="inline-flex items-center gap-1.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 text-xs font-semibold px-2.5 py-1"><span class="w-1.5 h-1.5 rounded-full bg-sky-600"></span>Menunggu Pelunasan</span></td>
+                <td class="px-3">Rp 1,26 jt / Rp 2,94 jt</td><td class="px-3">16 Okt, 09:10</td>
+                <td class="px-5 text-right"><button class="h-8 px-3 rounded-lg border border-line text-xs font-semibold hover:bg-page">Detail</button></td>
+              </tr>
+              <tr class="hover:bg-page/70">
+                <td class="px-5 py-3 font-semibold">BK-0040</td><td class="px-3">Abram Bergson</td><td class="px-3">Urban View Lofts</td><td class="px-3">20 Okt – 23 Okt</td>
+                <td class="px-3"><span class="inline-flex items-center gap-1.5 rounded-full bg-green-50 text-success border border-success/20 text-xs font-semibold px-2.5 py-1">✓ Confirmed/Paid</span></td>
+                <td class="px-3">Lunas Rp 1,95 jt</td><td class="px-3 text-ink-muted">—</td>
+                <td class="px-5 text-right"><button class="h-8 px-3 rounded-lg border border-line text-xs font-semibold hover:bg-page">Detail</button></td>
+              </tr>
+              <tr class="hover:bg-page/70">
+                <td class="px-5 py-3 font-semibold">BK-0039</td><td class="px-3">Phillip Mango</td><td class="px-3">Maple Grove Flats</td><td class="px-3">1 Okt – 31 Okt</td>
+                <td class="px-3"><span class="inline-flex items-center gap-1.5 rounded-full bg-red-50 text-danger border border-danger/20 text-xs font-semibold px-2.5 py-1">✕ Expired</span> <span class="text-xs text-warning font-semibold ml-1">Refund Pending</span></td>
+                <td class="px-3">DP Rp 3,3 jt</td><td class="px-3 text-ink-muted">Lewat 12 Okt</td>
+                <td class="px-5 text-right"><button class="h-8 px-3 rounded-lg border border-line text-xs font-semibold hover:bg-page">Proses refund</button></td>
+              </tr>
+              <tr class="hover:bg-page/70">
+                <td class="px-5 py-3 font-semibold">BK-0038</td><td class="px-3">Salung Prastyo</td><td class="px-3">Skyline Residences</td><td class="px-3">15 Okt – 15 Nov</td>
+                <td class="px-3"><span class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-xs font-semibold px-2.5 py-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>Pending DP</span></td>
+                <td class="px-3">Rp 2,55 jt / —</td><td class="px-3">14 Okt, 18:00</td>
+                <td class="px-5 text-right"><button class="h-8 px-3 rounded-lg border border-line text-xs font-semibold hover:bg-page">Detail</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="p-4 flex items-center justify-between text-sm text-ink-muted border-t border-line">
+          <span>Menampilkan 1–5 dari 128</span>
+          <div class="flex gap-1">
+            <button class="h-8 px-3 rounded-lg border border-line hover:bg-page" disabled>‹</button>
+            <button class="h-8 px-3 rounded-lg bg-primary text-white">1</button>
+            <button class="h-8 px-3 rounded-lg border border-line hover:bg-page">2</button>
+            <button class="h-8 px-3 rounded-lg border border-line hover:bg-page">3</button>
+            <button class="h-8 px-3 rounded-lg border border-line hover:bg-page">›</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</body>
+</html>

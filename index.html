@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huniku — Sewa Apartemen Jabodetabek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#0F766E', dark: '#134E4A' },
+        mint: '#E6F4F1',
+        page: '#F7FAF9',
+        ink: { DEFAULT: '#172B2A', muted: '#60716F' },
+        line: '#D9E4E1',
+        gold: '#C59A55',
+        success: '#15803D', warning: '#B45309', danger: '#B91C1C'
+      },
+      fontFamily: {
+        heading: ['Manrope', 'sans-serif'],
+        sans: ['Inter', 'sans-serif']
+      },
+      boxShadow: { soft: '0 8px 30px rgba(19,78,74,.08)' }
+    }
+  }
+}
+</script>
+<style>
+  :focus-visible { outline: 2px solid #0F766E; outline-offset: 2px; }
+</style>
+</head>
+<body class="bg-page text-ink font-sans antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-line">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-6 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 font-heading font-extrabold text-xl text-primary-dark">
+      <span class="grid place-items-center w-8 h-8 rounded-lg bg-primary text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      </span>
+      Huniku
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="Utama">
+      <a href="#" class="text-primary-dark border-b-2 border-primary py-5">Beranda</a>
+      <a href="#unit" class="text-ink-muted hover:text-primary-dark">Unit</a>
+      <a href="#area" class="text-ink-muted hover:text-primary-dark">Area</a>
+      <a href="#cara" class="text-ink-muted hover:text-primary-dark">Cara Booking</a>
+      <a href="#faq" class="text-ink-muted hover:text-primary-dark">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="/admin.html" class="hidden sm:inline-flex h-10 items-center px-4 rounded-lg border border-primary text-primary text-sm font-semibold hover:bg-mint">Admin</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-6 pt-6 md:pt-10">
+    <div class="relative overflow-hidden rounded-3xl min-h-[460px] md:min-h-[520px] flex items-end md:items-center bg-primary-dark">
+      <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1800&q=80" alt="Gedung apartemen modern di Jakarta" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/60 to-transparent"></div>
+      <div class="relative p-6 md:p-14 max-w-2xl text-white">
+        <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-gold">
+          <span class="w-6 h-px bg-gold"></span> Jabodetabek
+        </p>
+        <h1 class="mt-3 font-heading font-extrabold text-4xl md:text-5xl leading-tight">Apartemen pilihan,<br>sewa harian hingga tahunan.</h1>
+        <p class="mt-4 text-white/85 text-base md:text-lg">Unit dikelola agen terpercaya. Harga, DP, dan deadline jelas sebelum Anda membayar.</p>
+      </div>
+    </div>
+
+    <!-- Search card -->
+    <form class="relative -mt-12 md:-mt-14 mx-3 md:mx-10 bg-white rounded-2xl shadow-soft border border-line p-4 md:p-5 grid gap-3 md:grid-cols-[1.4fr_1fr_1fr_auto] items-end" onsubmit="return false">
+      <div>
+        <label for="lokasi" class="block text-xs font-semibold text-ink-muted mb-1">Lokasi</label>
+        <select id="lokasi" class="w-full h-11 rounded-lg border border-line bg-white px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+          <option>Semua area Jabodetabek</option><option>Jakarta Selatan</option><option>Jakarta Pusat</option><option>Tangerang</option><option>Bekasi</option><option>Depok</option>
+        </select>
+      </div>
+      <div>
+        <label for="durasi" class="block text-xs font-semibold text-ink-muted mb-1">Durasi sewa</label>
+        <select id="durasi" class="w-full h-11 rounded-lg border border-line bg-white px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+          <option>Harian</option><option selected>Bulanan</option><option>Tahunan</option>
+        </select>
+      </div>
+      <div>
+        <label for="masuk" class="block text-xs font-semibold text-ink-muted mb-1">Tanggal masuk</label>
+        <input id="masuk" type="date" class="w-full h-11 rounded-lg border border-line px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+      </div>
+      <button class="h-11 px-6 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary-dark transition inline-flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        Cari unit
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section id="unit" class="mx-auto max-w-[1240px] px-4 md:px-6 mt-16 md:mt-20">
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold tracking-wider uppercase text-primary">Unit pilihan</p>
+      <h2 class="mt-1 font-heading font-extrabold text-2xl md:text-3xl text-primary-dark">Apartemen populer minggu ini</h2>
+    </div>
+    <a href="#" class="text-sm font-semibold text-primary hover:text-primary-dark whitespace-nowrap">Lihat semua →</a>
+  </div>
+
+  <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- card -->
+    <article class="group bg-white rounded-2xl border border-line overflow-hidden shadow-sm hover:shadow-soft transition">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80" alt="Ruang tamu Skyline Residences" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <span class="absolute top-3 left-3 rounded-full bg-white/95 text-success text-xs font-semibold px-2.5 py-1">Tersedia</span>
+        <button class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-full bg-white/95 text-ink-muted hover:text-danger" aria-label="Simpan ke favorit">♡</button>
+      </div>
+      <div class="p-4">
+        <h3 class="font-heading font-bold text-lg">Skyline Residences</h3>
+        <p class="text-sm text-ink-muted mt-0.5">Kuningan, Jakarta Selatan</p>
+        <p class="mt-3"><span class="font-heading font-extrabold text-xl text-primary-dark">Rp 8,5 jt</span> <span class="text-sm text-ink-muted">/ bulan</span></p>
+        <p class="text-xs text-ink-muted mt-3 pt-3 border-t border-line">2 KT · 2 KM · 68 m² · Kolam renang</p>
+      </div>
+    </article>
+
+    <article class="group bg-white rounded-2xl border border-line overflow-hidden shadow-sm hover:shadow-soft transition">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80" alt="Studio Linden Apartments" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <span class="absolute top-3 left-3 rounded-full bg-white/95 text-success text-xs font-semibold px-2.5 py-1">Tersedia</span>
+        <button class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-full bg-white/95 text-ink-muted hover:text-danger" aria-label="Simpan ke favorit">♡</button>
+      </div>
+      <div class="p-4">
+        <h3 class="font-heading font-bold text-lg">The Linden Studio</h3>
+        <p class="text-sm text-ink-muted mt-0.5">BSD City, Tangerang</p>
+        <p class="mt-3"><span class="font-heading font-extrabold text-xl text-primary-dark">Rp 4,2 jt</span> <span class="text-sm text-ink-muted">/ bulan</span></p>
+        <p class="text-xs text-ink-muted mt-3 pt-3 border-t border-line">Studio · 1 KM · 28 m² · Gym</p>
+      </div>
+    </article>
+
+    <article class="group bg-white rounded-2xl border border-line overflow-hidden shadow-sm hover:shadow-soft transition">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80" alt="Kamar tidur Maple Grove" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <span class="absolute top-3 left-3 rounded-full bg-white/95 text-warning text-xs font-semibold px-2.5 py-1">Sisa 1 unit</span>
+        <button class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-full bg-white/95 text-ink-muted hover:text-danger" aria-label="Simpan ke favorit">♡</button>
+      </div>
+      <div class="p-4">
+        <h3 class="font-heading font-bold text-lg">Maple Grove Flats</h3>
+        <p class="text-sm text-ink-muted mt-0.5">Kemang, Jakarta Selatan</p>
+        <p class="mt-3"><span class="font-heading font-extrabold text-xl text-primary-dark">Rp 11 jt</span> <span class="text-sm text-ink-muted">/ bulan</span></p>
+        <p class="text-xs text-ink-muted mt-3 pt-3 border-t border-line">3 KT · 2 KM · 95 m² · Balkon</p>
+      </div>
+    </article>
+
+    <article class="group bg-white rounded-2xl border border-line overflow-hidden shadow-sm hover:shadow-soft transition">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=800&q=80" alt="Urban View Lofts" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <span class="absolute top-3 left-3 rounded-full bg-white/95 text-success text-xs font-semibold px-2.5 py-1">Tersedia</span>
+        <button class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-full bg-white/95 text-ink-muted hover:text-danger" aria-label="Simpan ke favorit">♡</button>
+      </div>
+      <div class="p-4">
+        <h3 class="font-heading font-bold text-lg">Urban View Lofts</h3>
+        <p class="text-sm text-ink-muted mt-0.5">Sudirman, Jakarta Pusat</p>
+        <p class="mt-3"><span class="font-heading font-extrabold text-xl text-primary-dark">Rp 650 rb</span> <span class="text-sm text-ink-muted">/ malam</span></p>
+        <p class="text-xs text-ink-muted mt-3 pt-3 border-t border-line">1 KT · 1 KM · 42 m² · City view</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- AREA -->
+<section id="area" class="mx-auto max-w-[1240px] px-4 md:px-6 mt-16 md:mt-20">
+  <div class="grid lg:grid-cols-2 gap-8 items-center">
+    <div class="relative rounded-3xl overflow-hidden aspect-[16/11]">
+      <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=1200&q=80" alt="Pemandangan kota Jakarta" class="w-full h-full object-cover">
+    </div>
+    <div>
+      <p class="text-xs font-semibold tracking-wider uppercase text-primary">Panduan area</p>
+      <h2 class="mt-1 font-heading font-extrabold text-2xl md:text-3xl text-primary-dark">Temukan area yang cocok untuk Anda</h2>
+      <p class="mt-3 text-ink-muted">Dari pusat bisnis hingga hunian yang tenang, pilih lokasi sesuai rutinitas dan anggaran.</p>
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <a href="#" class="flex items-center justify-between rounded-xl bg-white border border-line p-4 hover:border-primary transition"><span><strong class="block font-heading">Jakarta Selatan</strong><span class="text-xs text-ink-muted">Gaya hidup & kantor</span></span>→</a>
+        <a href="#" class="flex items-center justify-between rounded-xl bg-white border border-line p-4 hover:border-primary transition"><span><strong class="block font-heading">Jakarta Pusat</strong><span class="text-xs text-ink-muted">Dekat CBD</span></span>→</a>
+        <a href="#" class="flex items-center justify-between rounded-xl bg-white border border-line p-4 hover:border-primary transition"><span><strong class="block font-heading">Tangerang</strong><span class="text-xs text-ink-muted">Kota mandiri</span></span>→</a>
+        <a href="#" class="flex items-center justify-between rounded-xl bg-white border border-line p-4 hover:border-primary transition"><span><strong class="block font-heading">Bekasi & Depok</strong><span class="text-xs text-ink-muted">Hemat & nyaman</span></span>→</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="cara" class="mx-auto max-w-[1240px] px-4 md:px-6 mt-16 md:mt-20">
+  <div class="text-center max-w-xl mx-auto">
+    <p class="text-xs font-semibold tracking-wider uppercase text-primary">Cara booking</p>
+    <h2 class="mt-1 font-heading font-extrabold text-2xl md:text-3xl text-primary-dark">Transparan di setiap langkah</h2>
+  </div>
+  <ol class="mt-8 grid gap-4 md:grid-cols-4">
+    <li class="bg-white border border-line rounded-2xl p-5">
+      <span class="grid place-items-center w-10 h-10 rounded-full bg-mint text-primary font-heading font-bold">1</span>
+      <h3 class="mt-3 font-heading font-bold">Pilih unit & durasi</h3>
+      <p class="mt-1 text-sm text-ink-muted">Cek ketersediaan dan harga langsung dari kalender.</p>
+    </li>
+    <li class="bg-white border border-line rounded-2xl p-5">
+      <span class="grid place-items-center w-10 h-10 rounded-full bg-mint text-primary font-heading font-bold">2</span>
+      <h3 class="mt-3 font-heading font-bold">Bayar DP</h3>
+      <p class="mt-1 text-sm text-ink-muted">Nominal DP dan kebijakan refund tampil sebelum pembayaran.</p>
+    </li>
+    <li class="bg-white border border-line rounded-2xl p-5">
+      <span class="grid place-items-center w-10 h-10 rounded-full bg-mint text-primary font-heading font-bold">3</span>
+      <h3 class="mt-3 font-heading font-bold">Agen konfirmasi</h3>
+      <p class="mt-1 text-sm text-ink-muted">Agen memutuskan maksimal 24 jam setelah DP terverifikasi.</p>
+    </li>
+    <li class="bg-white border border-line rounded-2xl p-5">
+      <span class="grid place-items-center w-10 h-10 rounded-full bg-mint text-primary font-heading font-bold">4</span>
+      <h3 class="mt-3 font-heading font-bold">Lunasi & masuk</h3>
+      <p class="mt-1 text-sm text-ink-muted">Selesaikan pelunasan dalam 3 hari kalender setelah disetujui.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- BOOKING STATUS PREVIEW -->
+<section class="mx-auto max-w-[1240px] px-4 md:px-6 mt-16 md:mt-20">
+  <div class="rounded-3xl bg-mint border border-primary/15 p-6 md:p-10 grid lg:grid-cols-[1fr_1.1fr] gap-8 items-center">
+    <div>
+      <p class="text-xs font-semibold tracking-wider uppercase text-primary">Pantau booking</p>
+      <h2 class="mt-1 font-heading font-extrabold text-2xl md:text-3xl text-primary-dark">Status dan deadline selalu jelas</h2>
+      <p class="mt-3 text-ink-muted">Tanggal dan jam deadline ditampilkan lengkap, dengan instruksi langkah berikutnya.</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-line p-5 shadow-soft">
+      <div class="flex items-center justify-between">
+        <div><p class="text-xs text-ink-muted">Kode booking</p><p class="font-heading font-bold">BK-240918-0042</p></div>
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-warning text-xs font-semibold px-3 py-1 border border-warning/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-warning"></span> Menunggu Pelunasan
+        </span>
+      </div>
+      <ol class="mt-5 space-y-4 text-sm">
+        <li class="flex gap-3"><span class="mt-0.5 w-5 h-5 rounded-full bg-success text-white grid place-items-center text-xs">✓</span><span><strong>DP diterima</strong><br><span class="text-ink-muted">Rp 2.550.000 · 17 Okt 2026, 10:12</span></span></li>
+        <li class="flex gap-3"><span class="mt-0.5 w-5 h-5 rounded-full bg-success text-white grid place-items-center text-xs">✓</span><span><strong>Agen menyetujui</strong><br><span class="text-ink-muted">17 Okt 2026, 14:40</span></span></li>
+        <li class="flex gap-3"><span class="mt-0.5 w-5 h-5 rounded-full border-2 border-warning bg-white"></span><span><strong>Lunasi sebelum 20 Okt 2026, 14:40 WIB</strong><br><span class="text-ink-muted">Sisa pembayaran Rp 5.950.000</span></span></li>
+      </ol>
+      <a href="#" class="mt-5 w-full h-11 inline-flex items-center justify-center rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary-dark">Bayar pelunasan</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="mx-auto max-w-[1240px] px-4 md:px-6 mt-16 md:mt-20">
+  <div class="grid lg:grid-cols-[1fr_1.4fr] gap-8">
+    <div>
+      <p class="text-xs font-semibold tracking-wider uppercase text-primary">FAQ</p>
+      <h2 class="mt-1 font-heading font-extrabold text-2xl md:text-3xl text-primary-dark">Pertanyaan umum</h2>
+      <p class="mt-3 text-ink-muted">Tidak menemukan jawaban? Hubungi tim bantuan kami.</p>
+    </div>
+    <div class="space-y-3">
+      <details class="group bg-white border border-line rounded-xl p-4 open:shadow-sm" open>
+        <summary class="flex justify-between cursor-pointer font-semibold list-none">Berapa DP yang harus dibayar? <span class="text-primary group-open:rotate-45 transition">+</span></summary>
+        <p class="mt-2 text-sm text-ink-muted">Nominal DP berbeda per unit dan durasi. Anda akan melihatnya di halaman checkout sebelum membayar.</p>
+      </details>
+      <details class="group bg-white border border-line rounded-xl p-4">
+        <summary class="flex justify-between cursor-pointer font-semibold list-none">Bagaimana jika agen menolak atau tidak merespons? <span class="text-primary group-open:rotate-45 transition">+</span></summary>
+        <p class="mt-2 text-sm text-ink-muted">Booking akan dibatalkan dan DP diproses sesuai kebijakan refund yang Anda setujui saat checkout.</p>
+      </details>
+      <details class="group bg-white border border-line rounded-xl p-4">
+        <summary class="flex justify-between cursor-pointer font-semibold list-none">Berapa lama batas pelunasan? <span class="text-primary group-open:rotate-45 transition">+</span></summary>
+        <p class="mt-2 text-sm text-ink-muted">Maksimal 3 hari kalender setelah agen menyetujui booking. Deadline tampil pada detail booking.</p>
+      </details>
+      <details class="group bg-white border border-line rounded-xl p-4">
+        <summary class="flex justify-between cursor-pointer font-semibold list-none">Apakah sewa tahunan bisa dicicil? <span class="text-primary group-open:rotate-45 transition">+</span></summary>
+        <p class="mt-2 text-sm text-ink-muted">Saat ini belum tersedia cicilan. Pembayaran mengikuti deadline pelunasan booking.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="mt-20 bg-primary-dark text-white/80">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-6 py-10 flex flex-col md:flex-row justify-between gap-6 text-sm">
+    <div>
+      <p class="font-heading font-extrabold text-xl text-white">Huniku</p>
+      <p class="mt-2 max-w-xs">Platform sewa apartemen Jabodetabek yang transparan dan terpercaya.</p>
+    </div>
+    <div class="flex gap-10">
+      <ul class="space-y-2"><li><a href="#unit" class="hover:text-white">Unit</a></li><li><a href="#area" class="hover:text-white">Area</a></li><li><a href="#faq" class="hover:text-white">FAQ</a></li></ul>
+      <ul class="space-y-2"><li><a href="#" class="hover:text-white">Kebijakan refund</a></li><li><a href="#" class="hover:text-white">Syarat & ketentuan</a></li><li><a href="admin.html" class="hover:text-white">Admin</a></li></ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-4 text-center text-xs text-white/60">© 2026 Huniku. Seluruh hak dilindungi.</div>
+</footer>
+
+</body>
+</html>
